@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import entidades.Apartamento;
+import entidades.TipoApartamentoEnum;
 import util.ConexaoException;
 import util.GerenciadorConexaoSqlite;
 import util.IGerenciadorConexao;
@@ -38,7 +39,7 @@ public class DAOApartamento implements IDaoGeneric<Apartamento> {
 	@Override
 	public ArrayList<Apartamento> listar() throws DAOException, ConexaoException {
 		c = g.conectar();
-		String sql = "SELECT id_apto, max_hospedes, valor_base, disponivel FROM Apartamento";
+		String sql = "SELECT id_apto, tipo_apto, valor_base, disponivel FROM Apartamento";
 		try {
 			Statement st = c.createStatement();
 			ResultSet r = st.executeQuery(sql);
@@ -47,7 +48,7 @@ public class DAOApartamento implements IDaoGeneric<Apartamento> {
 			while (r.next()) {
 				ap = new Apartamento();
 				ap.setidApto(r.getString("id_apto"));
-				ap.setMaxHospedes(r.getInt("max_hospedes"));
+				ap.setTipoApto(TipoApartamentoEnum.valueOf(r.getString("tipo_apto")));
 				ap.setValorBase(r.getDouble("valor_base"));
 				ap.setDisponivel(r.getBoolean("disponivel"));
 				lista.add(ap);
@@ -65,14 +66,14 @@ public class DAOApartamento implements IDaoGeneric<Apartamento> {
 	@Override
 	public Apartamento consultar(String idApto) throws DAOException, ConexaoException {
 		c = g.conectar();
-		String sql = "SELECT id_apto, max_hospedes, valor_base, disponivel FROM Apartamento WHERE id_apto=?";
+		String sql = "SELECT id_apto, tipo_apto, valor_base, disponivel FROM Apartamento WHERE id_apto=?";
 		try {
 			PreparedStatement pst = c.prepareStatement(sql);
 			ResultSet r = pst.executeQuery();
 			Apartamento ap = new Apartamento();
 			if (r.next()) {
 				ap.setidApto(r.getString("id_apto"));
-				ap.setMaxHospedes(r.getInt("max_hospedes"));
+				ap.setTipoApto(TipoApartamentoEnum.valueOf(r.getString("tipo_apto")));
 				ap.setValorBase(r.getDouble("valor_base"));
 				ap.setDisponivel(r.getBoolean("disponivel"));
 			}
