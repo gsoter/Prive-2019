@@ -22,12 +22,12 @@ public class Apartamento {
 
 	}
 
-	public Apartamento(String numApto, boolean disponivel, Double valorBase, TipoApartamentoEnum tipo) {
+	public Apartamento(String idApto, boolean disponivel, Double valorBase, TipoApartamentoEnum tipoApto) {
 		super();
-		this.idApto = numApto;
+		this.idApto = idApto;
 		this.disponivel = disponivel;
 		this.valorBase = valorBase;
-		this.setTipoApto(tipo);
+		this.tipoApto = tipoApto;
 	}
 
 	private final static String[] NUMAPTO = { "01", "02", "02", "04", "05", "06", "07", "08", "09", "10", "11", "12",
@@ -39,11 +39,10 @@ public class Apartamento {
 
 	public void setidApto(String idApto) {
 		if (!(idApto == null))
-			for (String aptoNum : getNUMAPTO())
-				if (idApto == aptoNum)
+			for (String string : NUMAPTO) {
+				if (idApto == string)
 					this.idApto = idApto;
-				else
-					idApto = "01";
+			}
 	}
 
 	public boolean isDisponivel() {
@@ -72,7 +71,8 @@ public class Apartamento {
 	}
 
 	public void setTipoApto(TipoApartamentoEnum tipoApto) {
-		this.tipoApto = tipoApto;
+		if (!(tipoApto == null))
+			this.tipoApto = tipoApto;
 	}
 
 }
