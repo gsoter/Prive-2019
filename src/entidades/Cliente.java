@@ -1,5 +1,8 @@
 package entidades;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Cliente {
 
 	private String idCliente;
@@ -9,9 +12,9 @@ public class Cliente {
 	private String telefone;
 
 	public Cliente() {
-		
+
 	}
-	
+
 	public Cliente(String idCliente, String nome, String sobrenome, String cpf, String telefone) {
 		super();
 		this.idCliente = idCliente;
@@ -19,12 +22,6 @@ public class Cliente {
 		this.sobrenome = sobrenome;
 		this.cpf = cpf;
 		this.telefone = telefone;
-	}
-
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + "id:" + " " + getIdCliente() + " " + "nome:" + " " + getNome() + " "
-				+ getSobrenome();
 	}
 
 	public String getIdCliente() {
@@ -40,7 +37,9 @@ public class Cliente {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		if (!(nome == null))
+			if (!numFinder(nome))
+				this.nome = nome;
 	}
 
 	public String getSobrenome() {
@@ -48,7 +47,9 @@ public class Cliente {
 	}
 
 	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
+		if (!(sobrenome == null))
+			if (!numFinder(sobrenome))
+				this.sobrenome = sobrenome;
 	}
 
 	public String getCpf() {
@@ -56,7 +57,9 @@ public class Cliente {
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		if (!(cpf == null))
+			if (!letterFinder(cpf))
+				this.cpf = cpf;
 	}
 
 	public String getTelefone() {
@@ -64,8 +67,19 @@ public class Cliente {
 	}
 
 	public void setTelefone(String telefone) {
-		
-		this.telefone = telefone;		
+		if (!(telefone == null))
+			this.telefone = telefone;
 	}
 
+	public boolean numFinder(String s) {
+		Pattern p = Pattern.compile("\\d+");
+		Matcher m = p.matcher(s);
+		return m.find();
+	}
+
+	public boolean letterFinder(String s) {
+		Pattern p = Pattern.compile("[a-zA-Z]+");
+		Matcher m = p.matcher(s);
+		return m.find();
+	}
 }

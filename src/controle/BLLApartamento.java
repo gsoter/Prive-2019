@@ -24,7 +24,7 @@ public class BLLApartamento {
 		if (apto.getidApto() == null)
 			throw new ControlException("Erro: Apartamento inválido");
 
-		for (String numApto : apto.getNUMAPTO()) {
+		for (String numApto : Apartamento.getNUMAPTO()) {
 			if (apto.getidApto() != numApto)
 				throw new ControlException("Erro: Número de Apartamento inválido");
 		}

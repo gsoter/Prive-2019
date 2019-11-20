@@ -1,5 +1,10 @@
 package entidades;
 
+/**
+ * NOME TEMPORADA é um conjunto de constante
+ * ACRESCIMO é um adicional ao valor base de um apto. É uma constante 
+ *
+ */
 public class Temporada {
 
 	private String nomeTemporada;
