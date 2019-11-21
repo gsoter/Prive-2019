@@ -1,16 +1,28 @@
 package entidades;
 
 /**
- * NOME TEMPORADA é um conjunto de constante
- * ACRESCIMO é um adicional ao valor base de um apto. É uma constante 
+ * NOME TEMPORADA é um conjunto de constante ACRESCIMO é um adicional ao valor
+ * base de um apto. É uma constante
  *
  */
 public class Temporada {
 
 	private String nomeTemporada;
-	private int periodo;
 	private String dataInicial;
-	private Double acrescimo;
+	private String dataFinal;
+	private int acrescimo;
+
+	public Temporada() {
+
+	}
+
+	public Temporada(String nomeTemporada, String dataInicial, String dataFinal, int acrescimo) {
+		super();
+		this.nomeTemporada = nomeTemporada;
+		this.dataFinal = dataFinal;
+		this.dataInicial = dataInicial;
+		this.acrescimo = acrescimo;
+	}
 
 	public String getNomeTemporada() {
 		return nomeTemporada;
@@ -20,12 +32,12 @@ public class Temporada {
 		this.nomeTemporada = nomeTemporada;
 	}
 
-	public int getPeriodoEmDias() {
-		return periodo;
+	public String getDataFinal() {
+		return dataFinal;
 	}
 
-	public void setPeriodoEmDias(int periodo) {
-		this.periodo = periodo;
+	public void setDataFinal(String periodo) {
+		this.dataFinal = periodo;
 	}
 
 	public String getDataInicial() {
@@ -36,11 +48,11 @@ public class Temporada {
 		this.dataInicial = dataInicial;
 	}
 
-	public Double getAcrescimo() {
+	public int getAcrescimo() {
 		return acrescimo;
 	}
 
-	public void setAcrescimo(Double acrescimo) {
+	public void setAcrescimo(int acrescimo) {
 		this.acrescimo = acrescimo;
 	}
 

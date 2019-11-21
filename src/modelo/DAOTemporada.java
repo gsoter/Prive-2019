@@ -19,13 +19,14 @@ public class DAOTemporada implements IDaoGeneric<Temporada> {
 	@Override
 	public void alterar(Temporada temp) throws DAOException, ConexaoException {
 		c = g.conectar();
-		String sql = "UPDATE Temporada SET temporada, periodo, acrescimo, dt_inicial";
+		String sql = "UPDATE Temporada SET temporada, dt_inicial, dt_final, acrescimo";
 		try {
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, temp.getNomeTemporada());
-			pst.setInt(2, temp.getPeriodoEmDias());
-			pst.setDouble(3, temp.getAcrescimo());
 			pst.setString(4, temp.getDataInicial());
+			pst.setString(2, temp.getDataFinal());
+			pst.setDouble(3, temp.getAcrescimo());
+
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -46,9 +47,10 @@ public class DAOTemporada implements IDaoGeneric<Temporada> {
 			while (result.next()) {
 				temp = new Temporada();
 				temp.setNomeTemporada(result.getString("temporada"));
-				temp.setPeriodoEmDias(result.getInt("periodo"));
-				temp.setAcrescimo(result.getDouble("acrescimo"));
 				temp.setDataInicial(result.getString("dt_inicial"));
+				temp.setDataFinal(result.getString("dt_final"));
+				temp.setAcrescimo(result.getInt("acrescimo"));
+
 				lista.add(temp);
 			}
 			return lista;
@@ -62,7 +64,7 @@ public class DAOTemporada implements IDaoGeneric<Temporada> {
 	@Override
 	public Temporada consultar(String nomeTemporada) throws DAOException, ConexaoException {
 		c = g.conectar();
-		String sql = "SELECT temporada, periodo, acrescimo, dt_inicial FROM Temporada WHERE temporada=?";
+		String sql = "SELECT temporada, dt_inicial, dt_final, acrescimo  FROM Temporada WHERE temporada=?";
 		try {
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, nomeTemporada);
@@ -71,9 +73,10 @@ public class DAOTemporada implements IDaoGeneric<Temporada> {
 			if (result.next()) {
 				t = new Temporada();
 				t.setNomeTemporada(result.getString("temporada"));
-				t.setPeriodoEmDias(result.getInt("periodo"));
-				t.setAcrescimo(result.getDouble("acrescimo"));
 				t.setDataInicial(result.getString("dt_inicial"));
+				t.setDataFinal(result.getString("dt_final"));
+				t.setAcrescimo(result.getInt("acrescimo"));
+
 			}
 			return t;
 		} catch (SQLException e) {
