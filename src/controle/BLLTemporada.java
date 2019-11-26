@@ -14,7 +14,7 @@ public class BLLTemporada {
 	public void validarID(Temporada temp) throws ControlException {
 		if (temp == null)
 			throw new ControlException("ERRO: Temporada inválida");
-		if (temp.getNomeTemporada().isEmpty() || temp.getNomeTemporada() == null)
+		if (temp.getNomeTemporada().equals(null) || temp.getNomeTemporada() == null)
 			throw new ControlException("ERRO: Temporada inválida");
 	}	
 

@@ -11,6 +11,7 @@ import entidades.Apartamento;
 import entidades.Cliente;
 import entidades.Reserva;
 import entidades.Temporada;
+import entidades.TemporadaEnum;
 import util.ConexaoException;
 import util.GerenciadorConexaoSqlite;
 import util.IGerenciadorConexao;
@@ -28,7 +29,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, r.getCliente().getIdCliente());
 			pst.setString(2, r.getApto().getidApto());
-			pst.setString(3, r.getTemporada().getNomeTemporada());
+			pst.setString(3, r.getTemporada().getNomeTemporada().name());
 			pst.setInt(4, r.getnHospedes());
 			pst.setInt(5, r.getnCamaExtra());
 			pst.setString(6, r.getDataEntrada());
@@ -54,7 +55,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, r.getCliente().getIdCliente());
 			pst.setString(2, r.getApto().getidApto());
-			pst.setString(3, r.getTemporada().getNomeTemporada());
+			pst.setString(3, r.getTemporada().getNomeTemporada().name());
 			pst.setInt(4, r.getnHospedes());
 			pst.setInt(5, r.getnCamaExtra());
 			pst.setString(6, r.getDataEntrada());
@@ -105,7 +106,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 				reserva = new Reserva();
 				cliente.setIdCliente(result.getString("id_cliente"));
 				apto.setidApto(result.getString("id_apto"));
-				temp.setNomeTemporada(result.getString("id_temp"));
+				temp.setNomeTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				reserva.setCliente(cliente);
 				reserva.setTemporada(temp);
 				reserva.setnHospedes(result.getInt("qtd_hospedes"));
@@ -142,7 +143,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 				reserva.setIdReserva(result.getInt("id"));
 				cliente.setIdCliente(result.getString("id_cliente"));
 				apto.setidApto(result.getString("id_apto"));
-				temp.setNomeTemporada(result.getString("id_temp"));
+				temp.setNomeTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				reserva.setCliente(cliente);
 				reserva.setApto(apto);
 				reserva.setTemporada(temp);
@@ -178,7 +179,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			while (result.next()) {
 				apto.setidApto(result.getString("id_apto"));
 				cli.setIdCliente(result.getString("id_cliente"));
-				temp.setNomeTemporada(result.getString("id_temp"));
+				temp.setNomeTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				res.setIdReserva(result.getInt("id"));
 				res.setDataEntrada(result.getString("dt_entrada"));
 				res.setDataSaida(result.getString("dt_saida"));

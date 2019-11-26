@@ -1,43 +1,44 @@
 package entidades;
 
+import java.text.SimpleDateFormat;
+
 /**
- * NOME TEMPORADA é um conjunto de constante ACRESCIMO é um adicional ao valor
- * base de um apto. É uma constante
+ * NOME TEMPORADA é um conjunto de constante. ACRESCIMO é um adicional ao valor
+ * base de um apto. Adicionar a regra de negócio.
  *
  */
 public class Temporada {
 
-	private String nomeTemporada;
+	private TemporadaEnum nomeTemporada;
 	private String dataInicial;
 	private String dataFinal;
-	private int acrescimo;
 
 	public Temporada() {
-
 	}
 
-	public Temporada(String nomeTemporada, String dataInicial, String dataFinal, int acrescimo) {
+	public Temporada(TemporadaEnum nomeTemporada, String dataInicial, String dataFinal) {
 		super();
 		this.nomeTemporada = nomeTemporada;
 		this.dataFinal = dataFinal;
 		this.dataInicial = dataInicial;
-		this.acrescimo = acrescimo;
 	}
 
-	public String getNomeTemporada() {
+	public TemporadaEnum getNomeTemporada() {
 		return nomeTemporada;
 	}
 
-	public void setNomeTemporada(String nomeTemporada) {
-		this.nomeTemporada = nomeTemporada;
+	public void setNomeTemporada(TemporadaEnum nomeTemporada) {
+		if (!(nomeTemporada == null))
+			this.nomeTemporada = nomeTemporada;
 	}
 
 	public String getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(String periodo) {
-		this.dataFinal = periodo;
+	public void setDataFinal(String dataFinal) {
+		if (!(dataFinal == null))
+			this.dataFinal = formatNumber(dataFinal.replaceAll("[^0-9]", ""));
 	}
 
 	public String getDataInicial() {
@@ -45,15 +46,19 @@ public class Temporada {
 	}
 
 	public void setDataInicial(String dataInicial) {
-		this.dataInicial = dataInicial;
+		if (!(dataInicial == null))
+			this.dataInicial = formatNumber(dataInicial.replaceAll("[^0-9]", ""));
 	}
 
-	public int getAcrescimo() {
-		return acrescimo;
+	public String formatNumber(String dataIncial) {
+		String data = null;
+		SimpleDateFormat userFormat = new SimpleDateFormat("ddMMyyyy");
+		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/YYYY");
+		try {
+			data = newFormat.format(userFormat.parse(dataIncial));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
-
-	public void setAcrescimo(int acrescimo) {
-		this.acrescimo = acrescimo;
-	}
-
 }

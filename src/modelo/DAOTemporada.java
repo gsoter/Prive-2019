@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import entidades.Temporada;
+import entidades.TemporadaEnum;
 import util.ConexaoException;
 import util.GerenciadorConexaoSqlite;
 import util.IGerenciadorConexao;
@@ -19,13 +20,12 @@ public class DAOTemporada implements IDaoGeneric<Temporada> {
 	@Override
 	public void alterar(Temporada temp) throws DAOException, ConexaoException {
 		c = g.conectar();
-		String sql = "UPDATE Temporada SET temporada, dt_inicial, dt_final, acrescimo";
+		String sql = "UPDATE Temporada SET temporada, dt_inicial, dt_final";
 		try {
 			PreparedStatement pst = c.prepareStatement(sql);
-			pst.setString(1, temp.getNomeTemporada());
+			pst.setString(1, temp.getNomeTemporada().name());
 			pst.setString(4, temp.getDataInicial());
 			pst.setString(2, temp.getDataFinal());
-			pst.setDouble(3, temp.getAcrescimo());
 
 			pst.executeUpdate();
 		} catch (SQLException e) {
@@ -46,11 +46,9 @@ public class DAOTemporada implements IDaoGeneric<Temporada> {
 			Temporada temp = null;
 			while (result.next()) {
 				temp = new Temporada();
-				temp.setNomeTemporada(result.getString("temporada"));
+				temp.setNomeTemporada(TemporadaEnum.valueOf(result.getString("temporada")));
 				temp.setDataInicial(result.getString("dt_inicial"));
 				temp.setDataFinal(result.getString("dt_final"));
-				temp.setAcrescimo(result.getInt("acrescimo"));
-
 				lista.add(temp);
 			}
 			return lista;
@@ -72,10 +70,9 @@ public class DAOTemporada implements IDaoGeneric<Temporada> {
 			Temporada t = null;
 			if (result.next()) {
 				t = new Temporada();
-				t.setNomeTemporada(result.getString("temporada"));
+				t.setNomeTemporada(TemporadaEnum.valueOf(result.getString("temporada")));
 				t.setDataInicial(result.getString("dt_inicial"));
 				t.setDataFinal(result.getString("dt_final"));
-				t.setAcrescimo(result.getInt("acrescimo"));
 
 			}
 			return t;
