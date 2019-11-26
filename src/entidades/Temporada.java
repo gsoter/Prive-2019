@@ -38,7 +38,7 @@ public class Temporada {
 
 	public void setDataFinal(String dataFinal) {
 		if (!(dataFinal == null))
-			this.dataFinal = formatNumber(dataFinal.replaceAll("[^0-9]", ""));
+			this.dataFinal = formatData(dataFinal.replaceAll("[^0-9]", ""));
 	}
 
 	public String getDataInicial() {
@@ -47,10 +47,10 @@ public class Temporada {
 
 	public void setDataInicial(String dataInicial) {
 		if (!(dataInicial == null))
-			this.dataInicial = formatNumber(dataInicial.replaceAll("[^0-9]", ""));
+			this.dataInicial = formatData(dataInicial.replaceAll("[^0-9]", ""));
 	}
 
-	public String formatNumber(String dataIncial) {
+	public String formatData(String dataIncial) {
 		String data = null;
 		SimpleDateFormat userFormat = new SimpleDateFormat("ddMMyyyy");
 		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/YYYY");

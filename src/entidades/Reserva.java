@@ -1,5 +1,8 @@
 package entidades;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+
 public class Reserva {
 
 	private int idReserva;
@@ -14,26 +17,48 @@ public class Reserva {
 	private Double valorTotal;
 	private Double valorAdicional;
 
+	/**
+	 * @return Data que reserva foi feita. Abertura de débito. Esta data não pode
+	 *         ser futuro à data de entrada. No máximo, igual ou anterior. A data
+	 *         não pode ter distância maior que 1 ano (365 dias) da data de entrada.
+	 */
 	public String getDataAberturaConta() {
 		return dataAberturaConta;
 	}
 
+	/**
+	 * @param dataAberturaConta Uma data em números no formato dd MM yyyy Deve
+	 *                          reformatar p/ dd/MM/yyyy
+	 */
 	public void setDataAberturaConta(String dataAberturaConta) {
 		this.dataAberturaConta = dataAberturaConta;
 	}
 
+	/**
+	 * @return Valor total da reserva de acordo com temporada, valor adicional e nº
+	 *         de hóspedes
+	 */
 	public Double getValorTotal() {
 		return valorTotal;
 	}
 
+	/**
+	 * @param valorTotal Um valor em números no formato 00.00. Não pode ser um valor negativo.
+	 */
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 
+	/**
+	 * @return Valor adicional referente a gastos com cama extra, diárias fora do alcance da temporada
+	 */
 	public Double getValorAdicional() {
 		return valorAdicional;
 	}
 
+	/**
+	 * @param valorAdicional
+	 */
 	public void setValorAdicional(Double valorAdicional) {
 		this.valorAdicional = valorAdicional;
 	}
@@ -102,4 +127,20 @@ public class Reserva {
 		this.nCamaExtra = nCamaExtra;
 	}
 
+	public Double formatMoeda(Double valor) {
+		DecimalFormat formato = new DecimalFormat("#.##");
+		return Double.valueOf(formato.format(valor));
+	}
+
+	public String formatData(String dataIncial) {
+		String data = null;
+		SimpleDateFormat userFormat = new SimpleDateFormat("ddMMyyyy");
+		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/YYYY");
+		try {
+			data = newFormat.format(userFormat.parse(dataIncial));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
 }
