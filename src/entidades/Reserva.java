@@ -3,19 +3,35 @@ package entidades;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
+/**
+ * <p>
+ * Reserva depende inicialmente de data de entrada e saída, nº de hóspedes. Com
+ * isso será definido temporada, apto, nº de camas extra, valor adicional e
+ * valor total. Data de abertura serve pra armazenar data de pagamento adiantado
+ * da reserva.
+ * <p>
+ * Por padrão, a reserva deve ser criada da seguinte forma:
+ * <p>
+ * Reserva(id=001, dt_entrada = 01/06/2020, dt_saida=02/06/2020, nº_hospedes=3,
+ * temporada=inverno, apto=pequeno, nº_camas_extra=0, cliente=001,
+ * data_abertura=01/06/2020, valor_add=0.00, valorTotal=70.00.
+ * 
+ * @author Gustavo Soter
+ *
+ */
 public class Reserva {
 
 	private int idReserva;
-	private Apartamento apto;
-	private Cliente cliente;
 	private String dataEntrada;
 	private String dataSaida;
-	private Temporada temporada;
 	private int nHospedes;
+	private TemporadaEnum temporada;
+	private Apartamento apto;
 	private int nCamaExtra;
+	private Cliente cliente;
 	private String dataAberturaConta;
-	private Double valorTotal;
 	private Double valorAdicional;
+	private Double valorTotal;
 
 	/**
 	 * @return Data que reserva foi feita. Abertura de débito. Esta data não pode
@@ -43,14 +59,16 @@ public class Reserva {
 	}
 
 	/**
-	 * @param valorTotal Um valor em números no formato 00.00. Não pode ser um valor negativo.
+	 * @param valorTotal Um valor em números no formato 00.00. Não pode ser um valor
+	 *                   negativo.
 	 */
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 
 	/**
-	 * @return Valor adicional referente a gastos com cama extra, diárias fora do alcance da temporada
+	 * @return Valor adicional referente a gastos com cama extra, diárias fora do
+	 *         alcance da temporada
 	 */
 	public Double getValorAdicional() {
 		return valorAdicional;
@@ -103,11 +121,11 @@ public class Reserva {
 		this.dataSaida = dataSaida;
 	}
 
-	public Temporada getTemporada() {
+	public TemporadaEnum getTemporada() {
 		return temporada;
 	}
 
-	public void setTemporada(Temporada temporada) {
+	public void setTemporada(TemporadaEnum temporada) {
 		this.temporada = temporada;
 	}
 

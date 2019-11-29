@@ -4,6 +4,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * <p>
+ * Testar criação de reserva padrão, caso parametros nulos.
+ *
+ */
 public class ReservaTest {
 
 	private Reserva res;
@@ -81,15 +86,6 @@ public class ReservaTest {
 		return cliente;
 	}
 
-	public Temporada returnTemporada() {
-		Temporada temporada = new Temporada();
-		temporada.setNomeTemporada(TemporadaEnum.CARNAVAL);
-		temporada.setDataInicial("27/02/2020");
-		temporada.setDataFinal("04/03/2020");
-
-		return temporada;
-	}
-
 	public Apartamento returnApto() {
 		Apartamento apartamento = new Apartamento();
 		apartamento.setidApto("01");
@@ -102,17 +98,17 @@ public class ReservaTest {
 
 	public Reserva returnReserva() {
 		Reserva reserva = new Reserva();
-		reserva.setApto(this.returnApto());
-		reserva.setCliente(this.returnCliente());
-		reserva.setTemporada(this.returnTemporada());
-		reserva.setDataEntrada("26/02/2020");
-		reserva.setDataAberturaConta("01/02/2020");
-		reserva.setDataSaida("04/03/2020");
 		reserva.setIdReserva(001);
-		reserva.setnHospedes(2);
-		reserva.setnCamaExtra(0);
-		reserva.setValorAdicional(70.00);
-		reserva.setValorTotal(770.00);
+		reserva.setnHospedes(3);
+		reserva.setDataEntrada("01/06/2020");
+		reserva.setDataSaida("02/06/2020");
+		reserva.setCliente(this.returnCliente());
+		reserva.setTemporada(TemporadaEnum.INVERNO);
+		reserva.setApto(this.returnApto());
+		reserva.setnCamaExtra(0);	
+		reserva.setDataAberturaConta("01/06/2020");			
+		reserva.setValorAdicional(0.00);
+		reserva.setValorTotal(70.00);
 
 		return reserva;
 	}

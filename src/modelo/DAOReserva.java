@@ -29,7 +29,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, r.getCliente().getIdCliente());
 			pst.setString(2, r.getApto().getidApto());
-			pst.setString(3, r.getTemporada().getNomeTemporada().name());
+			pst.setString(3, r.getTemporada().name());
 			pst.setInt(4, r.getnHospedes());
 			pst.setInt(5, r.getnCamaExtra());
 			pst.setString(6, r.getDataEntrada());
@@ -55,7 +55,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, r.getCliente().getIdCliente());
 			pst.setString(2, r.getApto().getidApto());
-			pst.setString(3, r.getTemporada().getNomeTemporada().name());
+			pst.setString(3, r.getTemporada().name());
 			pst.setInt(4, r.getnHospedes());
 			pst.setInt(5, r.getnCamaExtra());
 			pst.setString(6, r.getDataEntrada());
@@ -101,14 +101,12 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			Reserva reserva = null;
 			Cliente cliente = new Cliente();
 			Apartamento apto = new Apartamento();
-			Temporada temp = new Temporada();
 			if (result.next()) {
 				reserva = new Reserva();
 				cliente.setIdCliente(result.getString("id_cliente"));
 				apto.setidApto(result.getString("id_apto"));
-				temp.setNomeTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				reserva.setCliente(cliente);
-				reserva.setTemporada(temp);
+				reserva.setTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				reserva.setnHospedes(result.getInt("qtd_hospedes"));
 				reserva.setnCamaExtra(result.getInt("cama_extra"));
 				reserva.setDataEntrada(result.getString("dt_entrada"));
@@ -137,16 +135,14 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			Reserva reserva = null;
 			Cliente cliente = new Cliente();
 			Apartamento apto = new Apartamento();
-			Temporada temp = new Temporada();
 			if (result.next()) {
 				reserva = new Reserva();
 				reserva.setIdReserva(result.getInt("id"));
 				cliente.setIdCliente(result.getString("id_cliente"));
 				apto.setidApto(result.getString("id_apto"));
-				temp.setNomeTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				reserva.setCliente(cliente);
 				reserva.setApto(apto);
-				reserva.setTemporada(temp);
+				reserva.setTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				reserva.setnHospedes(result.getInt("qtd_hospedes"));
 				reserva.setnCamaExtra(result.getInt("cama_extra"));
 				reserva.setDataEntrada(result.getString("dt_entrada"));
@@ -175,11 +171,9 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			Reserva res = new Reserva();
 			Cliente cli = new Cliente();
 			Apartamento apto = new Apartamento();
-			Temporada temp = new Temporada();
 			while (result.next()) {
 				apto.setidApto(result.getString("id_apto"));
 				cli.setIdCliente(result.getString("id_cliente"));
-				temp.setNomeTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				res.setIdReserva(result.getInt("id"));
 				res.setDataEntrada(result.getString("dt_entrada"));
 				res.setDataSaida(result.getString("dt_saida"));
@@ -188,7 +182,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 				res.setValorTotal(result.getDouble("valor_total"));
 				res.setApto(apto);
 				res.setCliente(cli);
-				res.setTemporada(temp);
+				res.setTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				lista.add(res);
 			}
 			return lista;

@@ -26,8 +26,8 @@ public class BLLReserva {
 				|| res.getDataSaida().isEmpty())
 			throw new ControlException("ERRO: Reserva-Data de Entrada/Saída inválidas");
 //		Verifica Reserva-Temporada
-		if (res.getTemporada() == null || res.getTemporada().getNomeTemporada() == null
-				|| res.getTemporada().getNomeTemporada().equals(null))
+		if (res.getTemporada() == null || res.getTemporada().name() == null
+				|| res.getTemporada().equals(null))
 			throw new ControlException("ERRO: Reserva-Temporada inválida");
 	}
 
@@ -50,8 +50,8 @@ public class BLLReserva {
 				|| res.getDataSaida().isEmpty())
 			throw new ControlException("ERRO: Reserva-Data de Entrada/Saída inválidas");
 //		Verifica Reserva-Temporada
-		if (res.getTemporada() == null || res.getTemporada().getNomeTemporada() == null
-				|| res.getTemporada().getNomeTemporada().equals(null))
+		if (res.getTemporada() == null || res.getTemporada().name() == null
+				|| res.getTemporada().equals(null))
 			throw new ControlException("ERRO: Reserva-Temporada inválida");
 	}
 
