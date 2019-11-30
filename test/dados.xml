@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+<CLIENTE id='001' nome= 'Maria' sobrenome= 'Santos' />
+<CLIENTE id='002' nome= 'Jose' sobrenome= 'Silva' />
+<CLIENTE id='003' nome= 'João' sobrenome= 'Sousa' />
+
+</dataset>

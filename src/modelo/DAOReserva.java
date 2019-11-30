@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import entidades.Apartamento;
 import entidades.Cliente;
 import entidades.Reserva;
-import entidades.Temporada;
 import entidades.TemporadaEnum;
 import util.ConexaoException;
 import util.GerenciadorConexaoSqlite;
