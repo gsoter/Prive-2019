@@ -1,23 +1,20 @@
-package unitario;
+package modelo;
 
 import org.junit.*;
+import static org.mockito.Mockito.*;
+
+import util.IGerenciadorConexao;
 
 import static org.junit.Assert.*;
 
 public class DAOClienteTest {
 
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+	private DAOCliente dao;
+	private IGerenciadorConexao g;
 
 	@Before
 	public void setUp() throws Exception {
+		
 	}
 
 	@After

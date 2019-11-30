@@ -13,14 +13,11 @@ public class ReservaTest {
 
 	private Reserva res;
 	private Apartamento apto;
-	private Temporada temp;
 	private Cliente cli;
 
 	@Before
 	public void setUp() throws Exception {
-		this.res = new Reserva();
 		this.apto = mock(Apartamento.class);
-		this.temp = mock(Temporada.class);
 		this.cli = mock(Cliente.class);
 
 	}
@@ -29,52 +26,38 @@ public class ReservaTest {
 	public void tearDown() throws Exception {
 		res = null;
 		apto = null;
-		temp = null;
 		cli = null;
 		System.gc();
 	}
 
 	@Test
 	public void getDataEntrada_setDataEntradaNull() throws Exception {
+		res = this.returnReserva();
 		res.setDataEntrada(null);
 		String result = res.getDataEntrada();
 		String expect = this.returnReserva().getDataEntrada();
 		assertEquals(expect, result);
 	}
-	
-	private void getDataSaida_setDataSaidaNull() {
-		// TODO Auto-generated method stub
 
-	}
-	
-	private void getDataAbertura_setDataAberturaNull() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	private void getDataEntrada_setDataEntradaAntesDeAbertura() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	private void getDataSaida_setDataSaidaAntesDeEntrada() {
-		// TODO Auto-generated method stub
-
+	@Test
+	public void getDataSaida_setDataSaidaNull() {
+		res = this.returnReserva();
+		res.setDataSaida(null);
+		String result = res.getDataSaida();
+		String expect = this.returnReserva().getDataSaida();
+		assertEquals(expect, result);
 	}
 
-	private void getDataEntrada_setDataEntradaAnteriorDataAtual() {
-		// TODO Auto-generated method stub
-
+	@Test
+	public void getDataAbertura_setDataAberturaNull() {
+		res = this.returnReserva();
+		res.setDataAberturaConta(null);
+		String result = res.getDataAberturaConta();
+		String expect = this.returnReserva().getDataAberturaConta();
+		assertEquals(expect, result);
 	}
 	
-	private void getDataAbertura_setDataAberturaAnteriorDataAtual() {
-		// TODO Auto-generated method stub
 
-	}
-	
-	
-	
-	
 	public Cliente returnCliente() {
 		Cliente cliente = new Cliente();
 		cliente.setIdCliente("001");
@@ -102,11 +85,11 @@ public class ReservaTest {
 		reserva.setnHospedes(3);
 		reserva.setDataEntrada("01/06/2020");
 		reserva.setDataSaida("02/06/2020");
-		reserva.setCliente(this.returnCliente());
+		reserva.setCliente(this.cli);
 		reserva.setTemporada(TemporadaEnum.INVERNO);
-		reserva.setApto(this.returnApto());
-		reserva.setnCamaExtra(0);	
-		reserva.setDataAberturaConta("01/06/2020");			
+		reserva.setApto(this.apto);
+		reserva.setnCamaExtra(0);
+		reserva.setDataAberturaConta("01/06/2020");
 		reserva.setValorAdicional(0.00);
 		reserva.setValorTotal(70.00);
 

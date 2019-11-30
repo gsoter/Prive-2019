@@ -33,6 +33,27 @@ public class Reserva {
 	private Double valorAdicional;
 	private Double valorTotal;
 
+	public Reserva() {
+
+	}
+
+	public Reserva(int idReserva, String dataEntrada, String dataSaida, int nHospedes, TemporadaEnum temporada,
+			Apartamento apto, int nCamaExtra, Cliente cliente, String dataAberturaConta, Double valorAdicional,
+			Double valorTotal) {
+		super();
+		this.idReserva = idReserva;
+		this.dataEntrada = dataEntrada;
+		this.dataSaida = dataSaida;
+		this.nHospedes = nHospedes;
+		this.temporada = temporada;
+		this.apto = apto;
+		this.nCamaExtra = nCamaExtra;
+		this.cliente = cliente;
+		this.dataAberturaConta = dataAberturaConta;
+		this.valorAdicional = valorAdicional;
+		this.valorTotal = valorTotal;
+	}
+
 	/**
 	 * @return Data que reserva foi feita. Abertura de débito. Esta data não pode
 	 *         ser futuro à data de entrada. No máximo, igual ou anterior. A data
@@ -47,7 +68,8 @@ public class Reserva {
 	 *                          reformatar p/ dd/MM/yyyy
 	 */
 	public void setDataAberturaConta(String dataAberturaConta) {
-		this.dataAberturaConta = dataAberturaConta;
+		if (!(dataAberturaConta == null))
+			this.dataAberturaConta = dataAberturaConta;
 	}
 
 	/**
@@ -110,7 +132,12 @@ public class Reserva {
 	}
 
 	public void setDataEntrada(String dataEntrada) {
-		this.dataEntrada = dataEntrada;
+		if (notNull(dataEntrada))
+			this.dataEntrada = dataEntrada;
+	}
+
+	public boolean notNull(Object arg) {
+		return (!(arg == null));
 	}
 
 	public String getDataSaida() {
@@ -118,7 +145,8 @@ public class Reserva {
 	}
 
 	public void setDataSaida(String dataSaida) {
-		this.dataSaida = dataSaida;
+		if (!(dataSaida == null))
+			this.dataSaida = dataSaida;
 	}
 
 	public TemporadaEnum getTemporada() {
