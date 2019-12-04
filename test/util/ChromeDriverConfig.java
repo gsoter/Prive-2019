@@ -1,4 +1,4 @@
-package controle;
+package util;
 
 public class ChromeDriverConfig {
 

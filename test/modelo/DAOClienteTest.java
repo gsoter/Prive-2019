@@ -2,48 +2,80 @@ package modelo;
 
 import org.junit.*;
 import entidades.Cliente;
-import static org.junit.Assert.*;
+import util.DbUnitHelper;
+
+import java.io.File;
 
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.operation.DatabaseOperation;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.filter.DefaultColumnFilter;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 
-public class DAOClienteTest extends DbUnit {
+public class DAOClienteTest extends DbUnitHelper {
 
-	private IDatabaseConnection connection;
 	private DAOCliente dao;
 	private Cliente cliente;
+	private IDatabaseConnection connection;
 
 	public DAOClienteTest(String name) {
 		super(name);
 	}
 
 	@BeforeClass
-	public void initClass() throws Exception {
+	public void setUpClass() throws Exception {
 		connection = getConnection();
+
 	}
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		cliente = new Cliente("001", "Maria", "Santos", null, null);
-		IDataSet dataSet = getDataSet();
-		try {
-			DatabaseOperation.CLEAN_INSERT.execute(connection, dataSet);
-		} finally {
-			connection.close();
-		}
+		IDataSet dataset = getDataSet();
+		getSetUpOperation();
+		cliente = new Cliente("001", "Maria", "Santos", "012345678900", "81987654321");
+		dao = new DAOCliente();
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
+		getTearDownOperation();
+		cliente = null;
+		dao = null;
+	}
+
+	@AfterClass
+	public void tearDownClass() throws Exception {
+		connection.close();
 	}
 
 	@Test
 	public void testInserirCliente_ClienteValido() throws Exception {
 		dao.inserir(cliente);
-		verificarBanco("dados.xml", "cliente");
+		try {
+			// dados do banco
+			IDataSet dataSetBanco = getConnection().createDataSet();
+			ITable dadosBanco = dataSetBanco.getTable("cliente");
+
+			// dados esperados de um dataset XML
+			IDataSet dataSetEsperado = new FlatXmlDataSetBuilder().build(new File("cliente.xml"));
+			ITable dadosEsperados = dataSetEsperado.getTable("cliente");
+
+			// filtra as colunas para corresponder ao XML
+			ITable dadosFiltrados = DefaultColumnFilter.includedColumnsTable(dadosBanco,
+					dadosEsperados.getTableMetaData().getColumns());
+
+			// se a tabela estiver vazia compara apenas a quantidade
+			if (dadosEsperados.getRowCount() == 0)
+				assertEquals(dadosFiltrados.getRowCount(), 0);
+			else
+				// verifica se os dados esperados correspondem aos dados do banco
+				assertEquals(dadosEsperados, dadosFiltrados);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 
 //	@Test
@@ -52,22 +84,7 @@ public class DAOClienteTest extends DbUnit {
 //	}
 //
 //	@Test
-//	public void testInserirCliente_CpfRepetido() throws Exception {
-//		assertTrue(true);
-//	}
-//
-//	@Test
-//	public void testInserirCliente_IdRepedita() throws Exception {
-//		assertTrue(true);
-//	}
-//
-//	@Test
 //	public void testAlterarCliente_ClienteNulo() throws Exception {
-//		assertTrue(true);
-//	}
-//
-//	@Test
-//	public void testAlterarCliente_ClienteNaoCadastrado() throws Exception {
 //		assertTrue(true);
 //	}
 //
@@ -78,11 +95,6 @@ public class DAOClienteTest extends DbUnit {
 //
 //	@Test
 //	public void testExcluirCliente_ParametroNulo() throws Exception {
-//		assertTrue(true);
-//	}
-//
-//	@Test
-//	public void testExcluirCliente_ClienteNaoCadastrado() throws Exception {
 //		assertTrue(true);
 //	}
 //
@@ -103,21 +115,6 @@ public class DAOClienteTest extends DbUnit {
 //
 //	@Test
 //	public void testConsultarClientePorCpf_CpfCadastrado() throws Exception {
-//		assertTrue(true);
-//	}
-//
-//	@Test
-//	public void testConsultarClientePorId_ParametroNulo() throws Exception {
-//		assertTrue(true);
-//	}
-//
-//	@Test
-//	public void testConsultarClientePorId_IdInexistente() throws Exception {
-//		assertTrue(true);
-//	}
-//
-//	@Test
-//	public void testConsultarClientePorId_IdExistente() throws Exception {
 //		assertTrue(true);
 //	}
 //

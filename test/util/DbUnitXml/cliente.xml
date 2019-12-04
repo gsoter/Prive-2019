@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+<CLIENTE id='001' nome= 'Maria' sobrenome= 'Santos' cpf= '012345678900' telefone= '81987654321' />
+<CLIENTE id='002' nome= 'Jose' sobrenome= 'Silva' cpf= '123456789012' telefone= '83912345678'  />
+<CLIENTE id='003' nome= 'João' sobrenome= 'Sousa' cpf= '23456789123' telefone= '11932165487'  />
+</dataset>

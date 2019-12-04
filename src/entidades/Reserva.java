@@ -54,6 +54,72 @@ public class Reserva {
 		this.valorTotal = valorTotal;
 	}
 
+	public int getIdReserva() {
+		return idReserva;
+	}
+
+	public void setIdReserva(int idReserva) {
+		this.idReserva = idReserva;
+	}
+
+	public String getDataEntrada() {
+		return dataEntrada;
+	}
+
+	public void setDataEntrada(String dataEntrada) {
+		if (notNull(dataEntrada))
+			this.dataEntrada = dataEntrada;
+	}
+
+	public String getDataSaida() {
+		return dataSaida;
+	}
+
+	public void setDataSaida(String dataSaida) {
+		if (!(dataSaida == null))
+			this.dataSaida = dataSaida;
+	}
+
+	public int getnHospedes() {
+		return nHospedes;
+	}
+
+	public void setnHospedes(int nHospedes) {
+		this.nHospedes = nHospedes;
+	}
+
+	public TemporadaEnum getTemporada() {
+		return temporada;
+	}
+
+	public void setTemporada(TemporadaEnum temporada) {
+		this.temporada = temporada;
+	}
+
+	public Apartamento getApto() {
+		return apto;
+	}
+
+	public void setApto(Apartamento apto) {
+		this.apto = apto;
+	}
+
+	public int getnCamaExtra() {
+		return nCamaExtra;
+	}
+
+	public void setnCamaExtra(int nCamaExtra) {
+		this.nCamaExtra = nCamaExtra;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	/**
 	 * @return Data que reserva foi feita. Abertura de débito. Esta data não pode
 	 *         ser futuro à data de entrada. No máximo, igual ou anterior. A data
@@ -73,6 +139,21 @@ public class Reserva {
 	}
 
 	/**
+	 * @return Valor adicional referente a gastos com cama extra, diárias fora do
+	 *         alcance da temporada
+	 */
+	public Double getValorAdicional() {
+		return valorAdicional;
+	}
+
+	/**
+	 * @param valorAdicional
+	 */
+	public void setValorAdicional(Double valorAdicional) {
+		this.valorAdicional = valorAdicional;
+	}
+
+	/**
 	 * @return Valor total da reserva de acordo com temporada, valor adicional e nº
 	 *         de hóspedes
 	 */
@@ -88,89 +169,8 @@ public class Reserva {
 		this.valorTotal = valorTotal;
 	}
 
-	/**
-	 * @return Valor adicional referente a gastos com cama extra, diárias fora do
-	 *         alcance da temporada
-	 */
-	public Double getValorAdicional() {
-		return valorAdicional;
-	}
-
-	/**
-	 * @param valorAdicional
-	 */
-	public void setValorAdicional(Double valorAdicional) {
-		this.valorAdicional = valorAdicional;
-	}
-
-	public int getIdReserva() {
-		return idReserva;
-	}
-
-	public void setIdReserva(int idReserva) {
-		this.idReserva = idReserva;
-	}
-
-	public Apartamento getApto() {
-		return apto;
-	}
-
-	public void setApto(Apartamento apto) {
-		this.apto = apto;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public String getDataEntrada() {
-		return dataEntrada;
-	}
-
-	public void setDataEntrada(String dataEntrada) {
-		if (notNull(dataEntrada))
-			this.dataEntrada = dataEntrada;
-	}
-
 	public boolean notNull(Object arg) {
 		return (!(arg == null));
-	}
-
-	public String getDataSaida() {
-		return dataSaida;
-	}
-
-	public void setDataSaida(String dataSaida) {
-		if (!(dataSaida == null))
-			this.dataSaida = dataSaida;
-	}
-
-	public TemporadaEnum getTemporada() {
-		return temporada;
-	}
-
-	public void setTemporada(TemporadaEnum temporada) {
-		this.temporada = temporada;
-	}
-
-	public int getnHospedes() {
-		return nHospedes;
-	}
-
-	public void setnHospedes(int nHospedes) {
-		this.nHospedes = nHospedes;
-	}
-
-	public int getnCamaExtra() {
-		return nCamaExtra;
-	}
-
-	public void setnCamaExtra(int nCamaExtra) {
-		this.nCamaExtra = nCamaExtra;
 	}
 
 	public Double formatMoeda(Double valor) {
