@@ -85,7 +85,8 @@ public class Reserva {
 	}
 
 	public void setnHospedes(int nHospedes) {
-		this.nHospedes = nHospedes;
+		if (notZero(nHospedes))
+			this.nHospedes = nHospedes;
 	}
 
 	public TemporadaEnum getTemporada() {
@@ -167,6 +168,10 @@ public class Reserva {
 	 */
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+
+	private boolean notZero(int numero) {
+		return (!(numero == 0));
 	}
 
 	public boolean notNull(Object arg) {

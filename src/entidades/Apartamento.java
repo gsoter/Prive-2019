@@ -75,4 +75,21 @@ public class Apartamento {
 			this.tipoApto = tipoApto;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Apartamento other = (Apartamento) obj;
+		if (idApto == null) {
+			if (other.idApto != null)
+				return false;
+		} else if (!idApto.equals(other.idApto))
+			return false;
+		return true;
+	}
+
 }
