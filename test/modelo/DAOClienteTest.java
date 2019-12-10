@@ -59,7 +59,7 @@ public class DAOClienteTest extends DbUnitHelper {
 			ITable dadosBanco = dataSetBanco.getTable("cliente");
 
 			// dados esperados de um dataset XML
-			IDataSet dataSetEsperado = new FlatXmlDataSetBuilder().build(new File("cliente.xml"));
+			IDataSet dataSetEsperado = new FlatXmlDataSetBuilder().build(new File("/test/util.DbUnitXml/cliente.xml"));
 			ITable dadosEsperados = dataSetEsperado.getTable("cliente");
 
 			// filtra as colunas para corresponder ao XML

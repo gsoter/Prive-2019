@@ -15,7 +15,7 @@ public class BLLReserva {
 		if (res == null)
 			throw new ControlException("ERRO: Reserva inválida");
 //		Verifica Reserva.Apartamento
-		if (res.getApto() == null || res.getApto().getidApto() == null || res.getApto().getidApto().isEmpty())
+		if (res.getApto() == null || res.getApto().equals(null))
 			throw new ControlException("ERRO: Reserva-Apto inválido");
 //		Verifica Reserva.Cliente
 		if (res.getCliente() == null || res.getCliente().getIdCliente() == null || res.getCliente().getCpf() == null
@@ -26,8 +26,7 @@ public class BLLReserva {
 				|| res.getDataSaida().isEmpty())
 			throw new ControlException("ERRO: Reserva-Data de Entrada/Saída inválidas");
 //		Verifica Reserva-Temporada
-		if (res.getTemporada() == null || res.getTemporada().name() == null
-				|| res.getTemporada().equals(null))
+		if (res.getTemporada() == null || res.getTemporada().name() == null || res.getTemporada().equals(null))
 			throw new ControlException("ERRO: Reserva-Temporada inválida");
 	}
 
@@ -39,7 +38,7 @@ public class BLLReserva {
 	public void verificarAlteracao(Reserva res) throws ControlException {
 		if (res == null)
 			throw new ControlException("ERRO: Reserva inválida");
-		if (res.getApto() == null || res.getApto().getidApto() == null || res.getApto().getidApto().isEmpty())
+		if (res.getApto() == null || res.getApto().equals(null))
 			throw new ControlException("ERRO: Reserva-Apto inválido");
 //		Verifica Reserva.Cliente
 		if (res.getCliente() == null || res.getCliente().getIdCliente() == null || res.getCliente().getCpf() == null
@@ -50,8 +49,7 @@ public class BLLReserva {
 				|| res.getDataSaida().isEmpty())
 			throw new ControlException("ERRO: Reserva-Data de Entrada/Saída inválidas");
 //		Verifica Reserva-Temporada
-		if (res.getTemporada() == null || res.getTemporada().name() == null
-				|| res.getTemporada().equals(null))
+		if (res.getTemporada() == null || res.getTemporada().name() == null || res.getTemporada().equals(null))
 			throw new ControlException("ERRO: Reserva-Temporada inválida");
 	}
 

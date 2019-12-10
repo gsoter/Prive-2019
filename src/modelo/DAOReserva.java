@@ -11,6 +11,7 @@ import entidades.Apartamento;
 import entidades.Cliente;
 import entidades.Reserva;
 import entidades.TemporadaEnum;
+import entidades.TipoApartamentoEnum;
 import util.ConexaoException;
 import util.GerenciadorConexaoSqlite;
 import util.IGerenciadorConexao;
@@ -27,8 +28,8 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 		try {
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, r.getCliente().getIdCliente());
-			pst.setString(2, r.getApto().getidApto());
-			pst.setString(3, r.getTemporada().name());
+			pst.setString(2, r.getApto().toString());
+			pst.setString(3, r.getTemporada().toString());
 			pst.setInt(4, r.getnHospedes());
 			pst.setInt(5, r.getnCamaExtra());
 			pst.setString(6, r.getDataEntrada());
@@ -53,7 +54,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 		try {
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, r.getCliente().getIdCliente());
-			pst.setString(2, r.getApto().getidApto());
+			pst.setString(2, r.getApto().name());
 			pst.setString(3, r.getTemporada().name());
 			pst.setInt(4, r.getnHospedes());
 			pst.setInt(5, r.getnCamaExtra());
@@ -116,7 +117,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			}
 			return null;
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new DAOException(e);
 		} finally {
 			g.desconectar(c);
@@ -140,7 +141,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 				cliente.setIdCliente(result.getString("id_cliente"));
 				apto.setidApto(result.getString("id_apto"));
 				reserva.setCliente(cliente);
-				reserva.setApto(apto);
+				reserva.setApto(TipoApartamentoEnum.valueOf(result.getString("apto")));
 				reserva.setTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				reserva.setnHospedes(result.getInt("qtd_hospedes"));
 				reserva.setnCamaExtra(result.getInt("cama_extra"));
@@ -152,7 +153,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			}
 			return reserva;
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new DAOException(e);
 		} finally {
 			g.desconectar(c);
@@ -169,9 +170,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 			ArrayList<Reserva> lista = new ArrayList<>();
 			Reserva res = new Reserva();
 			Cliente cli = new Cliente();
-			Apartamento apto = new Apartamento();
 			while (result.next()) {
-				apto.setidApto(result.getString("id_apto"));
 				cli.setIdCliente(result.getString("id_cliente"));
 				res.setIdReserva(result.getInt("id"));
 				res.setDataEntrada(result.getString("dt_entrada"));
@@ -179,7 +178,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 				res.setDataAberturaConta(result.getString("dt_abertura"));
 				res.setValorAdicional(result.getDouble("valor_add"));
 				res.setValorTotal(result.getDouble("valor_total"));
-				res.setApto(apto);
+				res.setApto(TipoApartamentoEnum.valueOf(result.getString("id_apto")));
 				res.setCliente(cli);
 				res.setTemporada(TemporadaEnum.valueOf(result.getString("id_temp")));
 				lista.add(res);

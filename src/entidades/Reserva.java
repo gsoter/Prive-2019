@@ -26,7 +26,7 @@ public class Reserva {
 	private String dataSaida;
 	private int nHospedes;
 	private TemporadaEnum temporada;
-	private Apartamento apto;
+	private TipoApartamentoEnum aptoTipo;
 	private int nCamaExtra;
 	private Cliente cliente;
 	private String dataAberturaConta;
@@ -38,15 +38,15 @@ public class Reserva {
 	}
 
 	public Reserva(int idReserva, String dataEntrada, String dataSaida, int nHospedes, TemporadaEnum temporada,
-			Apartamento apto, int nCamaExtra, Cliente cliente, String dataAberturaConta, Double valorAdicional,
-			Double valorTotal) {
+			TipoApartamentoEnum aptoTipo, int nCamaExtra, Cliente cliente, String dataAberturaConta,
+			Double valorAdicional, Double valorTotal) {
 		super();
 		this.idReserva = idReserva;
 		this.dataEntrada = dataEntrada;
 		this.dataSaida = dataSaida;
 		this.nHospedes = nHospedes;
 		this.temporada = temporada;
-		this.apto = apto;
+		this.aptoTipo = aptoTipo;
 		this.nCamaExtra = nCamaExtra;
 		this.cliente = cliente;
 		this.dataAberturaConta = dataAberturaConta;
@@ -84,7 +84,7 @@ public class Reserva {
 		return nHospedes;
 	}
 
-	public void setnHospedes(int nHospedes) {
+	public void setnHospedes(int nHospedes) throws Exception {
 		if (notZero(nHospedes))
 			this.nHospedes = nHospedes;
 	}
@@ -94,15 +94,17 @@ public class Reserva {
 	}
 
 	public void setTemporada(TemporadaEnum temporada) {
-		this.temporada = temporada;
+		if (notNull(temporada))
+			this.temporada = temporada;
 	}
 
-	public Apartamento getApto() {
-		return apto;
+	public TipoApartamentoEnum getApto() {
+		return aptoTipo;
 	}
 
-	public void setApto(Apartamento apto) {
-		this.apto = apto;
+	public void setApto(TipoApartamentoEnum aptoTipo) {
+		if (notNull(aptoTipo))
+			this.aptoTipo = aptoTipo;
 	}
 
 	public int getnCamaExtra() {
@@ -118,7 +120,8 @@ public class Reserva {
 	}
 
 	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+		if (notNull(cliente))
+			this.cliente = cliente;
 	}
 
 	/**
@@ -174,16 +177,16 @@ public class Reserva {
 		return (!(numero == 0));
 	}
 
-	public boolean notNull(Object arg) {
+	private boolean notNull(Object arg) {
 		return (!(arg == null));
 	}
 
-	public Double formatMoeda(Double valor) {
+	private Double formatMoeda(Double valor) {
 		DecimalFormat formato = new DecimalFormat("#.##");
 		return Double.valueOf(formato.format(valor));
 	}
 
-	public String formatData(String dataIncial) {
+	private String formatData(String dataIncial) {
 		String data = null;
 		SimpleDateFormat userFormat = new SimpleDateFormat("ddMMyyyy");
 		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/YYYY");
@@ -193,5 +196,13 @@ public class Reserva {
 			e.printStackTrace();
 		}
 		return data;
+	}
+
+	private boolean acomodaNoAptoPequeno(int nHospedes) {
+		return nHospedes >= 1 && nHospedes <= 3;
+	}
+
+	private boolean acomodaNoAptoGrande(int nHospedes) {
+		return nHospedes >= 4 && nHospedes <= 6;
 	}
 }
