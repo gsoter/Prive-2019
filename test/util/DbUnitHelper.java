@@ -39,7 +39,7 @@ public class DbUnitHelper extends DBTestCase {
 	}
 
 	protected DatabaseOperation getSetUpOperation() throws Exception {
-		return DatabaseOperation.REFRESH;
+		return DatabaseOperation.CLEAN_INSERT;
 	}
 
 	protected DatabaseOperation getTearDownOperation() throws Exception {

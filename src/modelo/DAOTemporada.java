@@ -96,7 +96,8 @@ public class DAOTemporada implements IDaoGeneric<Temporada> {
 	}
 
 	@Override
-	public void inserir(Temporada temp) throws DAOException, ConexaoException {
+	public boolean inserir(Temporada temp) throws DAOException, ConexaoException {
+		return false;
 		// TODO Auto-generated method stub
 
 	}

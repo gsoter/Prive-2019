@@ -18,10 +18,10 @@ public class DAOCliente implements IDaoGeneric<Cliente> {
 	private Connection c;
 
 	@Override
-	public void inserir(Cliente cliente) throws DAOException, ConexaoException {
+	public boolean inserir(Cliente cliente) throws DAOException, ConexaoException {
 		c = g.conectar();
 		String sql = "INSERT INTO Cliente (id, nome, sobrenome, cpf, telefone) VALUES (?,?,?,?,?)";
-	
+
 		try {
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, cliente.getIdCliente());
@@ -30,13 +30,13 @@ public class DAOCliente implements IDaoGeneric<Cliente> {
 			pst.setString(4, cliente.getCpf());
 			pst.setString(5, cliente.getTelefone());
 			pst.executeUpdate();
-	
+
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
 			g.desconectar(c);
 		}
-	
+		return false;
 	}
 
 	@Override

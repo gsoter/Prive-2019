@@ -11,30 +11,27 @@ import entidades.Apartamento;
 import entidades.Cliente;
 import entidades.Reserva;
 import entidades.Temporada;
+import modelo.DAOException;
+import util.ConexaoException;
 
 public class Facade {
 
 	private static Facade instancia;
-	private final BLLCliente CLIENTE = new BLLCliente();
-	private final BLLApartamento APTO = new BLLApartamento();
-	private final BLLReserva RESERVA = new BLLReserva();
-	private final BLLTemporada TEMP = new BLLTemporada();
+	private BLLCliente CLIENTE = new BLLCliente();
+	private BLLApartamento APTO = new BLLApartamento();;
+	private BLLReserva RESERVA = new BLLReserva();;
+	private BLLTemporada TEMP = new BLLTemporada();;
 
-	public static Facade getInstancia() {
+	public static Facade getInstancia() throws Exception {
 		if (instancia == null)
 			instancia = new Facade();
 		return instancia;
 	}
 
-	private Facade() {
-
-	}
-
 	// Bloco Cliente
 
-	public void inserirCliente(Cliente cliente) throws ControlException {
+	public void inserirCliente(Cliente cliente) throws ControlException, DAOException, ConexaoException {
 		CLIENTE.validarEntrada(cliente);
-		CLIENTE.verificarDuplicidade(cliente.getCpf());
 		CLIENTE.inserir(cliente);
 	}
 
@@ -107,19 +104,19 @@ public class Facade {
 	public ArrayList<Reserva> listarReserva() throws ControlException {
 		return RESERVA.listarReservas();
 	}
-	
-	//Bloco Temporada
-	
-	public Temporada pesquisarTemporada (String temporada) throws ControlException {
+
+	// Bloco Temporada
+
+	public Temporada pesquisarTemporada(String temporada) throws ControlException {
 		return TEMP.pesquisarTemporada(temporada);
 	}
-	
-	public void alterarTemporada(Temporada temporada) throws ControlException  {
-		TEMP.validarID(temporada);		
+
+	public void alterarTemporada(Temporada temporada) throws ControlException {
+		TEMP.validarID(temporada);
 		TEMP.alterarTemporada(temporada);
 	}
-	
-	public ArrayList<Temporada> listarTemporada()  throws ControlException {
+
+	public ArrayList<Temporada> listarTemporada() throws ControlException {
 		return TEMP.listarTemporadas();
 	}
 }

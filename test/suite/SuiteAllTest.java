@@ -1,11 +1,11 @@
-package controle;
+package suite;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ BLLClienteTest.class })
-public class SuiteTesteIntegracaoControlModel {
+@SuiteClasses({ SuiteTesteEntidade.class, SuiteTestControle.class, SuiteTesteModelo.class })
+public class SuiteAllTest {
 
 }

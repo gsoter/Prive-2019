@@ -85,7 +85,8 @@ public class DAOApartamento implements IDaoGeneric<Apartamento> {
 	}
 
 	@Override
-	public void inserir(Apartamento ap) throws DAOException, ConexaoException {
+	public boolean inserir(Apartamento ap) throws DAOException, ConexaoException {
+		return false;
 		// TODO Auto-generated method stub
 	}
 

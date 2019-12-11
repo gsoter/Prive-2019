@@ -181,11 +181,13 @@ public class Reserva {
 		return (!(arg == null));
 	}
 
+	@SuppressWarnings("unused")
 	private Double formatMoeda(Double valor) {
 		DecimalFormat formato = new DecimalFormat("#.##");
 		return Double.valueOf(formato.format(valor));
 	}
 
+	@SuppressWarnings("unused")
 	private String formatData(String dataIncial) {
 		String data = null;
 		SimpleDateFormat userFormat = new SimpleDateFormat("ddMMyyyy");
@@ -198,10 +200,12 @@ public class Reserva {
 		return data;
 	}
 
+	@SuppressWarnings("unused")
 	private boolean acomodaNoAptoPequeno(int nHospedes) {
 		return nHospedes >= 1 && nHospedes <= 3;
 	}
 
+	@SuppressWarnings("unused")
 	private boolean acomodaNoAptoGrande(int nHospedes) {
 		return nHospedes >= 4 && nHospedes <= 6;
 	}

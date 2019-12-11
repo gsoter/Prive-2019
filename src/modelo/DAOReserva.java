@@ -22,7 +22,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 	private Connection c;
 
 	@Override
-	public void inserir(Reserva r) throws DAOException, ConexaoException {
+	public boolean inserir(Reserva r) throws DAOException, ConexaoException {
 		c = g.conectar();
 		String sql = "INSERT INTO Reserva (id_cliente, id_apto, id_temp, qtd_hospedes, cama_extra, dt_entrada, dt_saida, dt_abertura, valor_total, valor_add) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
@@ -44,6 +44,7 @@ public class DAOReserva implements IDaoGeneric<Reserva> {
 		} finally {
 			g.desconectar(c);
 		}
+		return false;
 
 	}
 

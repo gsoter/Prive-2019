@@ -6,7 +6,7 @@ import util.ConexaoException;
 
 public interface IDaoGeneric<T> {
 
-	public void inserir(T o) throws DAOException, ConexaoException;
+	public boolean inserir(T o) throws DAOException, ConexaoException;
 
 	public void alterar(T o) throws DAOException, ConexaoException;
 

@@ -5,52 +5,21 @@ import java.util.ArrayList;
 import entidades.Cliente;
 import modelo.DAOCliente;
 import modelo.DAOException;
-import modelo.IDaoGeneric;
 import util.ConexaoException;
 
 public class BLLCliente {
 
-	private final IDaoGeneric<Cliente> dao;
+	private DAOCliente dao;
 
 	public BLLCliente() {
-		dao = new DAOCliente();
+		this.dao = new DAOCliente();
 	}
 
-	/*
-	 * Cliente válido: Nome/Sobrenome - Escrita correta, sem números Campos
-	 * preenchidos(NOT NULL), CPF correto (Apenas números, sem espaço vazio, NOT
-	 * NULL) telefone correto(NOT NULL, sem vazio, só números)
-	 */
-
-	public void validarEntrada(Cliente cliente) throws ControlException {
-		if (cliente == null)
-			throw new ControlException("Erro: Cliente inválido");
-
-		if (cliente.getNome() == null || cliente.getNome().isEmpty() || cliente.getNome().trim().length() < 2
-				|| temNumeros(cliente.getNome()))
-			throw new ControlException("Erro: Nome inválido");
-
-		if (cliente.getSobrenome() == null || cliente.getSobrenome().isEmpty()
-				|| cliente.getSobrenome().trim().length() < 2 || temNumeros(cliente.getSobrenome()))
-			throw new ControlException("Erro: Sobrenome inválido");
-
-		if (cliente.getCpf() == null || cliente.getCpf().isEmpty() || cliente.getSobrenome().trim().length() < 2
-				|| temLetras(cliente.getCpf()))
-			throw new ControlException("Erro: CPF inválido");
-	}
-
-	public void verificarDuplicidade(String cpf) throws ControlException {
-		if (pesquisar(cpf) != null) {
-			throw new ControlException("Erro: CPF já cadastrado na BD");
+	public boolean inserir(Cliente cliente) throws ControlException, DAOException, ConexaoException {
+		if (verificarDuplicidade(cliente.getCpf())) {
+			return false;
 		}
-	}
-
-	public void validarID(Cliente cliente) throws ControlException {
-		if (cliente == null)
-			throw new ControlException("Erro: Cliente inválido");
-
-		if (cliente.getIdCliente() == null || cliente.getIdCliente().isEmpty())
-			throw new ControlException("Erro: Cliente inválido");
+		return dao.inserir(cliente);
 	}
 
 	public Cliente pesquisar(int id) throws ControlException {
@@ -69,19 +38,6 @@ public class BLLCliente {
 	public Cliente pesquisar(String cpf) throws ControlException {
 		try {
 			return dao.consultar(cpf);
-
-		} catch (ConexaoException e) {
-			throw new ControlException("Erro: Conexão com BD inválida");
-
-		} catch (DAOException e) {
-			throw new ControlException("Erro: DAO");
-		}
-	}
-
-	public void inserir(Cliente cliente) throws ControlException {
-		try {
-			dao.inserir(cliente);
-
 		} catch (ConexaoException e) {
 			throw new ControlException("Erro: Conexão com BD inválida");
 
@@ -125,6 +81,46 @@ public class BLLCliente {
 			throw new ControlException("Erro: DAO");
 		}
 
+	}
+
+	/*
+	 * Cliente válido: Nome/Sobrenome - Escrita correta, sem números Campos
+	 * preenchidos(NOT NULL), CPF correto (Apenas números, sem espaço vazio, NOT
+	 * NULL) telefone correto(NOT NULL, sem vazio, só números)
+	 */
+
+	public void validarID(Cliente cliente) throws ControlException {
+		if (cliente == null)
+			throw new ControlException("Erro: Cliente inválido");
+
+		if (cliente.getIdCliente() == null || cliente.getIdCliente().isEmpty())
+			throw new ControlException("Erro: Cliente inválido");
+	}
+
+	public boolean verificarDuplicidade(String cpf) throws ControlException {
+		try {
+			pesquisar(cpf).getCpf().contains(cpf);
+		} catch (Exception e) {
+			throw new ControlException(e.getMessage());
+		}
+		return false;
+	}
+
+	public void validarEntrada(Cliente cliente) throws ControlException {
+		if (cliente == null)
+			throw new ControlException("Erro: Cliente inválido");
+
+		if (cliente.getNome() == null || cliente.getNome().isEmpty() || cliente.getNome().trim().length() < 2
+				|| temNumeros(cliente.getNome()))
+			throw new ControlException("Erro: Nome inválido");
+
+		if (cliente.getSobrenome() == null || cliente.getSobrenome().isEmpty()
+				|| cliente.getSobrenome().trim().length() < 2 || temNumeros(cliente.getSobrenome()))
+			throw new ControlException("Erro: Sobrenome inválido");
+
+		if (cliente.getCpf() == null || cliente.getCpf().isEmpty() || cliente.getSobrenome().trim().length() < 2
+				|| temLetras(cliente.getCpf()))
+			throw new ControlException("Erro: CPF inválido");
 	}
 
 	public void validarAlteracao(Cliente cliente) throws ControlException {
